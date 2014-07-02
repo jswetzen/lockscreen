@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="iPhone lock screen generator" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+<!-- Home Screen Icons -->
+<!-- Retina (Universal) -->
+<!--<link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icons/apple-touch-icon-114x114.png"> -->
+<!-- iPad -->
+<!--<link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icons/apple-touch-icon-72x72.png"> -->
+<!-- iPhone & iPod Touch -->
+<!--<link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">-->
+<!--<meta content="yes" name="apple-mobile-web-app-capable" />-->
+<meta content="minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<!-- Set Status Bar Black -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<!-- Web App Name -->
+<meta name="apple-mobile-web-app-title" content="Lock Screen">
+
+<!--<script src="http://code.jquery.com/jquery-git2.js"></script>-->
+<script src="js/libs/jquery-git2.js"></script>
+
+<!-- Bootstrap -->
+<!-- Latest compiled and minified CSS -->
+<!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- Optional theme -->
+<!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">-->
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>-->
+<script src="js/libs/bootstrap.min.js"></script>
+
+<script>
+  // Globals
+  var iPhone3Dims = [320, 480],
+      iPhone4Dims = [640, 960],
+      iPhone5Dims = [640, 1136],
+      dims = iPhone5Dims,
+      scale = window.devicePixelRatio, // 2 for retina displays
+      width = dims[0],
+      height = dims[1],
+      displayWidth = width/scale,
+      displayHeight = height/scale,
+      backgroundColor = 'yellow';
+</script>
+<script src="js/handlefile.js"></script>
+<script src="js/functions.js"></script>
+<script src="js/exifread/binaryajax.js"></script>
+<script src="js/exifread/exif.js"></script>
+<script src="js/script.js"></script>
+
+<link rel="stylesheet" href="css/style.css">
+
+<title>Lock Screen Generator</title>
+
+</head>
+<body>
+  <div id="controls">
+    <textarea id="imagetext">This should be wrapped properly, I think. We will soon see!</textarea><br />
+    <div id="textlength">0 lines used</div>
+    <div id="colorselection">
+        <div class="colorbutton">
+            <div class="swatch" style="background-color: yellow"></div>
+        </div>
+        <div class="colorbutton">
+            <div class="swatch" style="background-color: red"></div>
+        </div>
+        <div class="colorbutton">
+            <div class="swatch" style="background-color: green"></div>
+        </div>
+        <div class="colorbutton">
+            <div class="swatch" style="background-color: blue"></div>
+        </div>
+        <div class="colorbutton">
+            <div class="swatch" style="background-color: orange"></div>
+        </div>
+        <div class="colorbutton">
+            <div class="swatch" style="background-color: lightgreen"></div>
+        </div>
+        <div class="colorbutton">
+            <div class="swatch plus">+</div>
+        </div>
+        <input id="imageupload" type="file" accept="image/*" capture="camera">
+        <div class="clearfloat"></div>
+    </div>
+    <a class="btn btn-primary" id="generatebutton">Generate image</a>
+    <br /><span id="message"></span>
+  </div>
+  <img id="image"/>
+  <div id="help">
+    Tap and hold on the image to save it, then set it as background in preferences<br />
+    <br />
+    Tap to hide this help
+  </div>
+</body>
+</html>
