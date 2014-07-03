@@ -33,25 +33,29 @@ function makeTextImage(text, width, height, useImage, background, angle) {
         w = background.width,
         h = background.height;
         radAngle = angle * Math.PI/180;
-    ctx.translate(x,y);
-    ctx.rotate(radAngle);
 
     // If rotated at a right angle, center and scale properly
     if (radAngle % 180 == 90) {
+      ctx.translate(x,y);
+      ctx.rotate(radAngle);
       ctx.translate(-y,-x);
-      scaling = scaleImage(w, h, height, width, false);
-      ctx.drawImage(background, scaling.targetleft, scaling.targettop, scaling.width, scaling.height);
+      scaling = scaleToFit(w, h, height, width);
+      ctx.drawImage(background, scaling.xOffset, scaling.yOffset, scaling.width, scaling.height);
       ctx.translate(y,x);
+      ctx.rotate(-radAngle);
+      ctx.translate(-x,-y);
     // Otherwise, just scale as if it is not rotated (only 90 degree rotation steps are handled)
     } else {
-      ctx.translate(-x,-y);
-      scaling = scaleImage(w, h, width, height, false);
-      ctx.drawImage(background, scaling.targetleft, scaling.targettop, scaling.width, scaling.height);
       ctx.translate(x,y);
+      ctx.rotate(radAngle);
+      ctx.translate(-x,-y);
+      scaling = scaleToFit(w, h, width, height);
+      ctx.drawImage(background, scaling.xOffset, scaling.yOffset, scaling.width, scaling.height);
+      ctx.translate(x,y);
+      ctx.rotate(-radAngle);
+      ctx.translate(-x,-y);
     }
 
-    ctx.rotate(-radAngle);
-    ctx.translate(-x,-y);
   } else {
     ctx.fillStyle = background;
     ctx.fillRect(0, 0, width, height);
@@ -164,45 +168,24 @@ function countRenderedLines(text, width) {
   return lineCount;
 }
 
-//text = "Tja jag testar att skriva en lÃ¥ng mening som faktiskt fÃ¥r plats eftersom texten radbryts automatiskt";
+function scaleToFit(srcWidth, srcHeight, destWidth, destHeight) {
+  result = {
+    'width': destWidth,
+    'height': destHeight,
+    'xOffset': 0,
+    'yOffset': 0
+  }
 
-function scaleImage(srcwidth, srcheight, targetwidth, targetheight, fLetterBox) {
+  newWidth = srcWidth*destHeight/srcHeight;
 
-    var result = { width: 0, height: 0, fScaleToTargetWidth: true };
+  if (newWidth < destWidth) {
+    result.height = Math.floor(srcHeight*destWidth/srcWidth);
+  } else {
+    result.width = Math.floor(newWidth);
+  }
 
-    if ((srcwidth <= 0) || (srcheight <= 0) || (targetwidth <= 0) || (targetheight <= 0)) {
-        return result;
-    }
+  result.xOffset = Math.floor((destWidth-result.width)/2);
+  result.yOffset = Math.floor((destHeight-result.height)/2);
 
-    // scale to the target width
-    var scaleX1 = targetwidth;
-    var scaleY1 = (srcheight * targetwidth) / srcwidth;
-
-    // scale to the target height
-    var scaleX2 = (srcwidth * targetheight) / srcheight;
-    var scaleY2 = targetheight;
-
-    // now figure out which one we should use
-    var fScaleOnWidth = (scaleX2 > targetwidth);
-    if (fScaleOnWidth) {
-        fScaleOnWidth = fLetterBox;
-    }
-    else {
-       fScaleOnWidth = !fLetterBox;
-    }
-
-    if (fScaleOnWidth) {
-        result.width = Math.floor(scaleX1);
-        result.height = Math.floor(scaleY1);
-        result.fScaleToTargetWidth = true;
-    }
-    else {
-        result.width = Math.floor(scaleX2);
-        result.height = Math.floor(scaleY2);
-        result.fScaleToTargetWidth = false;
-    }
-    result.targetleft = Math.floor((targetwidth - result.width) / 2);
-    result.targettop = Math.floor((targetheight - result.height) / 2);
-
-    return result;
+  return result;
 }
