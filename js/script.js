@@ -18,6 +18,12 @@ $(window).load(function(){
   });
 
   // Set events
+  $('#rotateleft').click(function () {
+    fileHandler.rotateImageRight(-90);
+  });
+  $('#rotateright').click(function () {
+    fileHandler.rotateImageRight(90);
+  });
   $('#generatebutton').click(function () {
     //$('#controls').hide();
     text = $('textarea#imagetext').val();
@@ -55,6 +61,7 @@ $(window).load(function(){
   });
   $('#imageupload').on('change', fileHandler.handle);
 
+  // Set text change to trigger counter
   $('#imagetext').bind('input propertychange', function () {
     if ($(this).val().length > 0) {
       lines = countRenderedLines($(this).val(), width);
