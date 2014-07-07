@@ -92,6 +92,8 @@ clear: both;
     line-height: 28px;
     text-align: center;
     vertical-align: middle;
+    position: relative;
+    overflow: hidden;
 }
 #imageupload {
   display: none;
