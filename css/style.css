@@ -79,6 +79,10 @@ clear: both;
     padding: 2px;
     float: left;
 }
+.rotate {
+  width: 35px;
+  height: 28px;
+}
 .swatch {
     width: 100%;
     height: 100%;
