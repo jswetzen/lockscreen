@@ -52,12 +52,26 @@ $(window).load(function(){
     $(this).parent().css({'box-shadow': '0px 0px 3px 1px #999'});
   });
 
+  // Update picker colour when it has been changed
+  $('#picked-colour').blur(function () {
+    var colour = $(this).val();
+    $('.picker').css('background', colour);
+    backgroundColor = colour;
+
+    // Unset the background image
+    fileHandler.clearImage();
+  });
+
   /* Set the first swatch active */
   $('.swatch').first().parent().css({'box-shadow': '0px 0px 3px 1px #999'});
 
   $('.plus').click(function () {
     // Upload image
     $('#imageupload').click();
+  });
+  $('.colour').click(function () {
+    //Open picker
+    document.getElementById('picked-colour').color.showPicker();
   });
   $('#imageupload').on('change', fileHandler.handle);
 

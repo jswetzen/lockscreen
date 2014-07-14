@@ -49,6 +49,9 @@
 <script src="js/functions.js"></script>
 <script src="js/exifread/binaryajax.js"></script>
 <script src="js/exifread/exif.js"></script>
+
+<script src="jscolor/jscolor.js"></script>
+
 <script src="js/script.js"></script>
 
 <link rel="stylesheet" href="css/style.css">
@@ -79,6 +82,12 @@
         <div class="colorbutton">
             <div class="swatch" style="background-color: lightgreen"></div>
         </div>
+        <input type="text" id="picked-colour" class="color {hash:true,pickerMode:'HVS',pickerClosable:true,pickerOnfocus:false,pickerFaceColor:'white',pickerBorderColor:'black black black black',pickerInsetColor:'black'}" readonly>
+        <div class="colorbutton">
+            <div class="swatch colour">
+              <img class="picker" alt="Colour picker" src="images/picker.png">
+            </div>
+        </div>
         <div class="colorbutton">
             <div class="swatch plus">+</div>
         </div>
@@ -87,10 +96,10 @@
     </div>
     <div id="rotation">
       <div class="btn btn-primary rotatebutton" id="rotateleft">
-        <img class="rotate" alt="rotate left" src="images/rotate-left.png">
+        <img class="rotate" alt="Rotate left" src="images/rotate-left.png">
       </div>
       <div class="btn btn-primary rotatebutton" id="rotateright">
-        <img class="rotate" alt="rotate right" src="images/rotate-right.png">
+        <img class="rotate" alt="Rotate right" src="images/rotate-right.png">
       </div>
       <div class="clearfloat"></div>
     </div>
